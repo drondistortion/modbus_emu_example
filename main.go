@@ -149,6 +149,7 @@ func (eh *exampleHandler) handleStateAction(action bool) {
 // with ./modbus-cli --target tcp://localhost:5502 wr:n:<true|false>)
 func (eh *exampleHandler) HandleCoils(req *modbus.CoilsRequest) (res []bool, err error) {
 	//log.Println("I'm hadlling coils")
+	/*
 	if req.UnitId != eh.UnitId {
 		log.Printf("not the unit id... %d\n", req.UnitId)
 		// only accept unit ID #1
@@ -157,6 +158,7 @@ func (eh *exampleHandler) HandleCoils(req *modbus.CoilsRequest) (res []bool, err
 		err	= modbus.ErrIllegalFunction
 		return
 	}
+	*/
 
 	// make sure that all registers covered by this request actually exist
 	if int(req.Addr) + int(req.Quantity) > len(eh.coils) {
@@ -217,12 +219,14 @@ func (eh *exampleHandler) HandleHoldingRegisters(req *modbus.HoldingRegistersReq
 	var regAddr	uint16
 
 	//log.Printf("I'm handling holding register")
+	/*
 	if req.UnitId != eh.UnitId {
 		// only accept unit ID #1
 		log.Printf("Not the unit ID: %d", req.UnitId)
 		err	= modbus.ErrIllegalFunction
 		return
 	}
+	*/
 
 	// since we're manipulating variables shared between multiple goroutines,
 	// acquire a lock to avoid concurrency issues.
